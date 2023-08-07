@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TrasfersTile extends StatelessWidget {
 
-  final String account;
+  final int account;
   final double value;
 
   const TrasfersTile({ super.key, required this.account, required this.value });
@@ -16,7 +16,7 @@ class TrasfersTile extends StatelessWidget {
                 const Icon(Icons.money),
                 Column(
                   children: [
-                  Text(account),
+                  Text(account.toString()),
                   Text(value.toString()),
                 ],
                 )

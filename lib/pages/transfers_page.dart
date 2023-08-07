@@ -16,15 +16,15 @@ class TransfersPage extends StatelessWidget {
       ),
       body: ListView(
         children: const [
-          TrasfersTile(account: 'Conta 0001-1111-0000', value: 100),
-          TrasfersTile(account: 'Conta 0001-1111-0000', value: 200),
-          TrasfersTile(account: 'Conta 0001-1111-0000', value: 300),
+          TrasfersTile(account: 0001-1111-0000, value: 100),
+          TrasfersTile(account: 0001-1111-0000, value: 200),
+          TrasfersTile(account: 0001-1111-0000, value: 300),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const CreateTransferPage())
+            MaterialPageRoute(builder: (_) => CreateTransferPage())
           );
         },
         child: const Icon(Icons.add),
