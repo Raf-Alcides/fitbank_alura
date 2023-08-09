@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:fitbank_alura/pages/components/botao.dart';
 import 'package:fitbank_alura/pages/components/item_transferencia.dart';
-import 'package:fitbank_alura/pages/formulario_transferencia.dart';
+import 'package:fitbank_alura/pages/models/transferencia.dart';
 import 'package:flutter/material.dart';
 
+import 'formulario_transferencia.dart';
+
 class Transferencias extends StatefulWidget {
-  final List _transferencia = [];
+  final List<Transferencia> _transferencia = [];
 
   Transferencias({super.key});
 
@@ -18,33 +23,55 @@ class _TransferenciasState extends State<Transferencias> {
       appBar: AppBar(
         title: const Text('Transferências'),
       ),
-      body: ListView.builder(
-        itemCount: widget._transferencia.length,
-        itemBuilder: (_, index) {
-          final transferencia = widget._transferencia[index];
-          return ItemTransferencia(transferencia: transferencia);
-        },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          widget._transferencia.isNotEmpty
+              ? Expanded(
+                child: ListView.builder(
+                    itemCount: widget._transferencia.length,
+                    itemBuilder: (_, index) {
+                      Transferencia transferencia = widget._transferencia[index];
+                      return ItemTransferencia(transferencia: transferencia,);
+                    },
+                  ),
+              )
+              : Expanded(child: Image.asset('assets/wallet.png')),
+          Botao(
+            label: 'Adicionar Transferência',
+            onPressed: () {
+              
+              getPageAndGetValue(context);
+            },
+          )
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final Future future =
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-            return const FormularioTransferencia();
-          }));
+    );
+  }
 
-          future.then((transferenciarecebida) {
-            Future.delayed(const Duration(seconds: 5), () {
-              debugPrint(transferenciarecebida);
-              if (transferenciarecebida != null) {
-                setState(() {
-                  widget._transferencia.add(transferenciarecebida);
-                });
-              }
-            });
-          });
+
+  void getPageAndGetValue(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) {
+          return FormularioTransferencia();
         },
-        child: const Icon(Icons.add),
       ),
+    ).then(
+      (transferenciarecebida) {
+        Future.delayed(
+          const Duration(seconds: 5),
+          () {
+            if (transferenciarecebida != null) {
+              setState(
+                () {
+                  widget._transferencia.add(transferenciarecebida);
+                },
+              );
+            }
+          },
+        );
+      },
     );
   }
 }

@@ -1,85 +1,113 @@
-import 'package:fitbank_alura/pages/models/transferencia.dart';
+
+
+import 'package:fitbank_alura/pages/components/botao.dart';
 import 'package:flutter/material.dart';
 
+import 'models/transferencia.dart';
+
 class FormularioTransferencia extends StatefulWidget {
-  const FormularioTransferencia({super.key});
+  final TextEditingController controllerAccount = TextEditingController();
+  final TextEditingController controllerValue = TextEditingController();
+
+  FormularioTransferencia({super.key});
 
   @override
-  State<FormularioTransferencia> createState() => _FormularioTransferenciaState();
+  State<FormularioTransferencia> createState() =>
+      _FormularioTransferenciaState();
 }
 
 class _FormularioTransferenciaState extends State<FormularioTransferencia> {
   @override
   Widget build(BuildContext context) {
-
-    final TextEditingController controllerAccount = TextEditingController();
-    final TextEditingController controllerValue = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criar Transferencia'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _CustomTextField(
-              controller: controllerAccount,
-              hintText: '0000-0000-0000',
-              label: 'Conta',
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 25, left: 20),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Valor da Tranferência',
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                _CustomTextField(
+                  controller: widget.controllerValue,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 25, left: 20),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Conta',
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                _CustomTextField(
+                  controller: widget.controllerAccount,
+                ),
+              ],
             ),
-            _CustomTextField(
-              controller: controllerValue,
-              hintText: '00,0',
-              label: 'valor',
-              icon: Icons.monetization_on,
-            ),
-            ElevatedButton(
-              child: const Text('Criar Agora'),
-              onPressed: () {
-                final account = int.tryParse(controllerAccount.text);
-                final value = double.tryParse(controllerValue.text);
-      
-                if (value != null && account != null) {
-                  debugPrint('Criando transferencia');
-                  final transferenciaCriada =
-                      Transferencia(valor: value, numeroConta: account);
-                  debugPrint('$transferenciaCriada');
-                  Navigator.pop<Transferencia>(context, transferenciaCriada);
-                }
-              },
-            ),
-          ],
-        ),
+          ),
+          Botao(
+            label: 'Criar Agora',
+            onPressed: () {
+              final account = int.tryParse(widget.controllerAccount.text);
+              final value = double.tryParse(widget.controllerValue.text);
+
+              if (value != null && account != null) {
+                final transferenciaCriada =
+                    Transferencia(valor: value, numeroConta: account);
+
+                Navigator.pop<Transferencia>(context, transferenciaCriada);
+              }
+            },
+          ),
+        ],
       ),
     );
   }
+
+  
 }
 
 class _CustomTextField extends StatelessWidget {
-  final String hintText;
-  final String label;
   final TextEditingController controller;
-  final IconData? icon;
 
   const _CustomTextField({
     Key? key,
-    required this.hintText,
-    required this.label,
     required this.controller,
-    this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: TextField(
-        controller: controller,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          hintText: hintText,
-          label: Text(label),
-          icon: icon != null ? Icon(icon) : null,
+      child: SizedBox(
+        height: 50,
+        child: TextFormField(
+          textAlign: TextAlign.center,
+          controller: controller,
+          keyboardType: TextInputType.number,
+          cursorColor: const Color(0xff7C98FB),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Color(0xff7C98FB))),
+          ),
         ),
       ),
     );

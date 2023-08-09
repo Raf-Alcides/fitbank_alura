@@ -1,6 +1,11 @@
 class Transferencia {
   final double valor;
   final int numeroConta;
+  bool verify;
 
-  Transferencia({required this.valor, required this.numeroConta});
+  Transferencia({
+    this.valor = 0.0,
+    this.numeroConta = 0,
+    this.verify = false,
+  });
 }
