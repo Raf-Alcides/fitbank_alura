@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'pages/transferencias.dart';
 
-void main() {
-  runApp(const FitBank());
-}
+void main() => runApp(const FitBank());
 
 class FitBank extends StatelessWidget {
   const FitBank({super.key});

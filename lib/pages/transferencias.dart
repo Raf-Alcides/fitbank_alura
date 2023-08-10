@@ -1,16 +1,16 @@
 import 'dart:async';
-
-import 'package:fitbank_alura/pages/components/botao.dart';
-import 'package:fitbank_alura/pages/components/item_transferencia.dart';
-import 'package:fitbank_alura/pages/models/transferencia.dart';
+import 'package:fitbank_alura/components/botao.dart';
+import 'package:fitbank_alura/components/item_transferencia.dart';
+import 'package:fitbank_alura/models/transferencia.dart';
 import 'package:flutter/material.dart';
-
 import 'formulario_transferencia.dart';
 
 class Transferencias extends StatefulWidget {
   final List<Transferencia> _transferencia = [];
 
-  Transferencias({super.key});
+  Transferencias({
+    super.key,
+  });
 
   @override
   State<Transferencias> createState() => _TransferenciasState();
@@ -28,29 +28,28 @@ class _TransferenciasState extends State<Transferencias> {
         children: [
           widget._transferencia.isNotEmpty
               ? Expanded(
-                child: ListView.builder(
+                  child: ListView.builder(
                     itemCount: widget._transferencia.length,
                     itemBuilder: (_, index) {
-                      Transferencia transferencia = widget._transferencia[index];
-                      return ItemTransferencia(transferencia: transferencia,);
+                      Transferencia transferencia =
+                          widget._transferencia[index];
+                      return ItemTransferencia(
+                        transferencia: transferencia,
+                      );
                     },
                   ),
-              )
+                )
               : Expanded(child: Image.asset('assets/wallet.png')),
           Botao(
             label: 'Adicionar Transferência',
-            onPressed: () {
-              
-              getPageAndGetValue(context);
-            },
-          )
+            onPressed: () => _getPage(context),
+          ),
         ],
       ),
     );
   }
 
-
-  void getPageAndGetValue(BuildContext context) {
+  void _getPage(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) {

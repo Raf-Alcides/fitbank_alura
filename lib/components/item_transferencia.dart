@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fitbank_alura/pages/models/transferencia.dart';
+import 'package:fitbank_alura/models/transferencia.dart';
 
-class ItemTransferencia extends StatefulWidget {
+class ItemTransferencia extends StatelessWidget {
   final Transferencia transferencia;
-  bool verificacao = true;
 
-  ItemTransferencia({
+  const ItemTransferencia({
     Key? key,
     required this.transferencia,
   }) : super(key: key);
 
-  @override
-  State<ItemTransferencia> createState() => _ItemTransferenciaState();
-}
-
-class _ItemTransferenciaState extends State<ItemTransferencia> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +23,7 @@ class _ItemTransferenciaState extends State<ItemTransferencia> {
                 color: Colors.green,
                 blurRadius: 5,
                 spreadRadius: 1,
-              )
+              ),
             ]),
         child: ListTile(
           dense: true,
@@ -42,7 +36,7 @@ class _ItemTransferenciaState extends State<ItemTransferencia> {
             color: Colors.green[900],
           ),
           title: Text(
-            'Valor: R\$ ${widget.transferencia.valor}0'.toString(),
+            'Valor: R\$ ${transferencia.valor}0'.toString(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 20,
@@ -50,7 +44,7 @@ class _ItemTransferenciaState extends State<ItemTransferencia> {
             ),
           ),
           subtitle: Text(
-            'Conta: ${widget.transferencia.numeroConta}'.toString(),
+            'Conta: ${transferencia.numeroConta}'.toString(),
             textAlign: TextAlign.center,
           ),
         ),

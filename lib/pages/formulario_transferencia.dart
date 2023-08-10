@@ -1,9 +1,9 @@
 
 
-import 'package:fitbank_alura/pages/components/botao.dart';
+import 'package:fitbank_alura/components/botao.dart';
 import 'package:flutter/material.dart';
 
-import 'models/transferencia.dart';
+import '../models/transferencia.dart';
 
 class FormularioTransferencia extends StatefulWidget {
   final TextEditingController controllerAccount = TextEditingController();
@@ -26,7 +26,7 @@ class _FormularioTransferenciaState extends State<FormularioTransferencia> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
+          SingleChildScrollView(
             child: Column(
               children: [
                 const Padding(
